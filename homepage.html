@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sound of Soul</title>
+    <style>
+        * {
+            font-family: "Segoe UI",Arial,sans-serif;
+            margin: 7px;
+        }
+        body {
+            background-color: black;
+        }
+        .logo {
+            width: 110px;
+            height: 110px;
+            float: left;
+        }
+        .logo-title {
+            color: white;
+            font-size: 24px;
+            margin: 50px;
+            padding-top: 50px;
+        }
+        .btnLogin {
+            display: inline-block;
+            width: auto;
+            text-decoration: none;
+            overflow: hidden;
+        }
+        .btnRegister {
+            display: inline-block;
+            width: auto;
+            text-decoration: none;
+            overflow: hidden;
+        }
+        .btnGroup{
+            float: right;
+            margin-right: 30px;
+            border: 3px solid rgba(255, 251, 255, 0.39);
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: rgba(0, 0, 0, 0.02);
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+
+        #div2 {
+            width: 500px;
+            background-color: rgba(0, 0, 0, 0.99);
+            color: white;
+            font-size: 50px;
+            position: relative;
+            -webkit-animation: mymove 5s ;
+            animation: mymove 5s ;
+        }
+
+        #div2 {-webkit-animation-timing-function: ease;}
+
+        #div2 {animation-timing-function: ease;}
+
+        @-webkit-keyframes mymove {
+            from {left: 0px;}
+            to {left: 700px;}
+        }
+
+        @keyframes mymove {
+            from {left: 0px;}
+            to {left: 700px;}
+        }
+        .song-item {
+            border: 1px solid rgba(13,23,20,0.2);
+            border-radius: 10px;
+        }
+        .song-item:after {
+            content: '';
+            clear: both;
+            display: table;
+        }
+        .song-index {
+            float: left;
+            width: 5%;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            padding-top: 2%;
+            padding-left: 1%;
+        }
+        .song-thumbnail {
+            float: left;
+            width: 10%;
+        }
+        .song-thumbnail img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .song-infor {
+            padding-top: 1%;
+            float: left;
+            width: 20%;
+        }
+        .song-infor .song-name {
+            font-weight: bold;
+        }
+        .song-infor .song-singer {
+            font-weight: lighter;
+            color: rgba(0,0,23,0.47);
+        }
+        .song-control {
+            padding-top: 3%;
+            color: dodgerblue;
+            cursor: pointer;
+            text-decoration: underline;
+            float: left;
+            width: 10%;
+        }
+
+        .song-detail {
+            float: left;
+            width: 50%;
+            padding-top: 0.5%;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <img class="logo" src="https://orig00.deviantart.net/a93a/f/2015/330/d/c/chrome_redesigned_original_icon__png_transparent_by_mirandas_drawings-d9i3g6d.png" alt="icon">
+</div>
+<div>
+    <p class="logo-title">Sound of Soul</p>
+</div>
+<div>
+    <button class="btnLogin btnGroup"><a href="login.html">Login</a></button>
+    <button class="btnRegister btnGroup"><a href="register.html">Register</a></button>
+</div>
+<p id="div2">Welcome To SofS</p>
+<div class="song-player">
+    <div class="song-detail">
+        <marquee behavior="scroll" direction="left">
+            <div class="current-song-title">
+                <span id="current-play-title"></span>
+            </div>
+        </marquee>
+    </div>
+</div>
+
+<script>
+    var MY_API = 'https://2-dot-backup-server-003.appspot.com/_api/v2/songs/get-free-songs'
+    var xmlHttpRequest = new XMLHttpRequest();
+    xmlHttpRequest.onreadystatechange = function (){
+        if (this.readyState == 4 && this.status == 200) {
+            var listSong = JSON.parse(this.responseText);
+            var content = '';
+            for (var i = 0; i < listSong.length; i++) {
+                content += '<div class="song-item">';
+                content += '<div class="song-index">' + (i + 1) + '</div>';
+                content += '<div class="song-thumbnail">';
+                content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+                content += '</div>';
+                content += '<div class="song-infor">';
+                content += '<div class="song-name">' + listSong[i].name + '</div>';
+                content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+                content += '</div>';
+                content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+                content += '</div>';
+            }
+            document.getElementById('list-song').innerHTML = content;
+        }
+    }
+    xmlHttpRequest.open('GET', MY_API, true);
+    xmlHttpRequest.send();
+
+    function playSong(link, name, singer) {
+        document.getElementById('my-mp3').src = link;
+        document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + ' - ' + singer;
+    }
+</script>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Play with mp3</title>
+<style>
+* {
+font-family: Tahoma;
+margin: 7px;
+}
+.song-item {
+border: 1px solid rgba(13,23,20,0.2);
+border-radius: 10px;
+}
+.song-item:after {
+content: '';
+clear: both;
+display: table;
+}
+.song-index {
+float: left;
+width: 5%;
+font-size: 30px;
+font-weight: bold;
+text-align: center;
+padding-top: 2%;
+padding-left: 1%;
+}
+.song-thumbnail {
+float: left;
+width: 10%;
+}
+.song-thumbnail img {
+width: 100%;
+border-radius: 10px;
+}
+.song-infor {
+padding-top: 1%;
+float: left;
+width: 20%;
+}
+.song-infor .song-name {
+font-weight: bold;
+}
+.song-infor .song-singer {
+font-weight: lighter;
+color: rgba(0,0,23,0.47);
+}
+.song-control {
+padding-top: 3%;
+color: dodgerblue;
+cursor: pointer;
+text-decoration: underline;
+float: left;
+width: 10%;
+}
+
+.song-detail {
+float: left;
+width: 50%;
+padding-top: 0.5%;
+font-weight: bold;
+}
+</style>
+</head>
+<body>
+<div class="song-player">
+<div class="song-detail">
+<marquee behavior="scroll" direction="left">
+<div class="current-song-title">
+<span id="current-play-title"></span>
+</div>
+</marquee>
+</div>
+<div class="player">
+<audio controls id="my-mp3" autoplay>
+<source src="" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+</div>
+</div>
+
+<div class="list-song" id="list-song">
+</div>
+<script>
+var MY_API = 'https://2-dot-backup-server-003.appspot.com/_api/v2/songs/get-free-songs'
+var xmlHttpRequest = new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange = function (){
+if (this.readyState == 4 && this.status == 200) {
+var listSong = JSON.parse(this.responseText);
+var content = '';
+for (var i = 0; i < listSong.length; i++) {
+content += '<div class="song-item">';
+content += '<div class="song-index">' + (i + 1) + '</div>';
+content += '<div class="song-thumbnail">';
+content += '<img src="' + listSong[i].thumbnail + '" alt="">';
+content += '</div>';
+content += '<div class="song-infor">';
+content += '<div class="song-name">' + listSong[i].name + '</div>';
+content += '<div class="song-singer">' + listSong[i].singer + '</div>';
+content += '</div>';
+content += '<div class="song-control" onclick="playSong(\'' + listSong[i].link + '\', \'' + listSong[i].name + '\', \'' + listSong[i].singer + '\')">Play</div>';
+content += '</div>';
+}
+document.getElementById('list-song').innerHTML = content;
+}
+}
+xmlHttpRequest.open('GET', MY_API, true);
+xmlHttpRequest.send();
+
+function playSong(link, name, singer) {
+document.getElementById('my-mp3').src = link;
+document.getElementById('current-play-title').innerHTML = 'Current playing: ' + name + ' - ' + singer;
+}
+</script>
+</body>
+</html>

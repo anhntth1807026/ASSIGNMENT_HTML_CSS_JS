@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register Form</title>
+    <style>
+        * {
+            font-family: "Segoe UI",Arial,sans-serif;
+            margin: 7px;
+        }
+        body {
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+        #header {
+            text-align: center;
+        }
+        .logo {
+            width: 110px;
+            height: 110px;
+            float: left;
+        }
+        .logo-title {
+            color: white;
+            font-size: 24px;
+            margin: 50px;
+            padding-top: 50px;
+        }
+        input[type=text], input {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: rgba(57, 109, 175, 0.15);
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: rgba(57, 109, 175, 0.15);
+        }
+        button {
+            background-color: rgba(19, 22, 63, 0.42);
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .form-group container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: rgba(223, 255, 110, 0.2);
+        }
+        .danger{
+            color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <img class="logo" src="https://orig00.deviantart.net/a93a/f/2015/330/d/c/chrome_redesigned_original_icon__png_transparent_by_mirandas_drawings-d9i3g6d.png" alt="icon">
+</div>
+<div>
+    <p class="logo-title">Sound of Soul</p>
+</div>
+<h1 id="header">Register Form</h1>
+<div class="container">
+    <form name="register-form" method="post" id="formtxt" action="register.html" onsubmit="return validationForm()">
+        <div class="form-group">
+            <lable>First Name</lable>
+            <span id="FnameDanger" class="danger"> </span>
+            <br>
+            <input type="text" name="firstname" id="firstName" placeholder="Enter First Name" class="form-control" autocomplete="on">
+        </div>
+        <div class="form-group">
+            <lable>Last Name</lable>
+            <span id="LnameDanger" class="danger"> </span>
+            <br>
+            <input type="text" name="lastname" id="lastName" placeholder="Enter Last Name" class="form-control" autocomplete="on">
+        </div>
+        <div class="form-group">
+            <lable>Password</lable>
+            <span id="passwordDanger" class="danger"> </span>
+            <br>
+            <input type="password" name="password" id="passWord" placeholder="Enter Password" class="form-control" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <lable>Retype Password</lable>
+            <span id="repasswordDanger" class="danger"> </span>
+            <br>
+            <input type="password" name="password" id="retypePassword" placeholder="Enter Retype Password" class="form-control" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <lable>Address</lable>
+            <span id="addressDanger" class="danger"> </span>
+            <br>
+            <input type="text" name="address" id="address" placeholder="Enter Address" class="form-control" autocomplete="on">
+        </div>
+        <div class="form-group">
+            <lable>Phone</lable>
+            <span id="phoneDanger" class="danger"> </span>
+            <br>
+            <input type="text" name="phone" id="phone" placeholder="Enter Phone" class="form-control" autocomplete="on">
+        </div>
+        <div class="form-group">
+            <lable>Gender</lable>
+                <input type="radio" name="gender" value="Male" checked>Male</input>
+                <input type="radio" name="gender" value="Female">Female</input>
+                <input type="radio" name="gender" value="Other">Other</input>
+        </div>
+        <div class="form-group">
+            <lable for="email">Email</lable>
+            <span id="emailDanger" class="danger"> </span>
+            <br>
+            <input type="email" name="email" id="email" placeholder="Enter Email" class="form-control" autocomplete="on">
+        </div>
+        <div class="form-group">
+            <label>Birthday</label>
+            <input type="date" name="birthday" class="form-control" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <input type="button" name="btn-register" class="form-control" value="Submit">
+            <input type="reset" name="reset" class="form-control" value="Reset">
+        </div>
+    </form>
+</div>
+<script>
+    function validationForm() {
+        var result = true;
+        var pswd = document.getElementById('passWord').value;
+        var repswd = document.getElementById('retypePassword').value;
+        var fn = document.getElementById('firstName').value;
+        var ln = document.getElementById('lastName').value;
+        var adrs = document.getElementById('address').value;
+        var p = document.getElementById('phone').value;
+        var e = document.getElementById('email').value;
+        if (fn == "") {
+            document.getElementById('FnameDanger').innerHTML = "!! Fill First Name !!";
+            result = false;
+        } else if (fn.length < 2) {
+            document.getElementById('FnameDanger').innerHTML = "!! First Name must be elder 2 !!";
+            result = false;
+        } else if (fn.length > 30) {
+            document.getElementById('FnameDanger').innerHTML = "!! First Name must be less 30 !!";
+            result = false;
+        } else if (!isNaN(fn)) {
+            document.getElementById('FnameDanger').innerHTML = "!! Number are not allowed !!";
+            result = false;
+        } else {
+            document.getElementById('FnameDanger').innerHTML = "";
+        }
+
+
+        if (ln == "") {
+            document.getElementById('LnameDanger').innerHTML = "!! Fill Last Name !!";
+            result = false;
+        } else if (ln.length < 2) {
+            document.getElementById('LnameDanger').innerHTML = "!! Last Name must be elder 2 !!";
+            result = false;
+        } else if (ln.length > 30) {
+            document.getElementById('LnameDanger').innerHTML = "!! Last Name must be less 30 !!";
+            result = false;
+        } else if (!isNaN(ln)) {
+            document.getElementById('LnameDanger').innerHTML = "!! Number are not allowed !!";
+            result = false;
+        } else {
+            document.getElementById('LnameDanger').innerHTML = "";
+        }
+
+        if (adrs == "") {
+            document.getElementById('addressDanger').innerHTML = "!! Fill Address !!";
+            result = false;
+        } else if (adrs != "") {
+            document.getElementById('addressDanger').innerHTML = "";
+        }
+
+
+        if (p == "") {
+            document.getElementById('phoneDanger').innerHTML = "!! Fill Phone !!";
+            result = false;
+        } else if (p.length < 10) {
+            document.getElementById('phoneDanger').innerHTML = "!! Phone must be elder 10!!";
+            result = false;
+        } else if (p.length > 12) {
+            document.getElementById('phoneDanger').innerHTML = "!! Phone must be less 12 !!";
+            result = false;
+        } else {
+            document.getElementById('phoneDanger').innerHTML = "";
+        }
+
+        // (p != "")
+        if (e == "") {
+            document.getElementById('emailDanger').innerHTML = "!! Fill Email !!";
+            result = false;
+        } else {
+            document.getElementById('emailDanger').innerHTML = "";
+        }
+
+
+        if (repswd == "") {
+            document.getElementById('repasswordDanger').innerHTML = "!! Fill Retype Password !!";
+            result = false;
+        } else {
+            document.getElementById('repasswordDanger').innerHTML = "";
+        }
+
+
+        if (pswd == "") {
+            document.getElementById('passwordDanger').innerHTML = "!! Fill Password !!";
+            result = false;
+        } else if (pswd.length < 8) {
+            document.getElementById('passwordDanger').innerHTML = "!! Password must be elder 8 !!";
+            result = false;
+        } else if (pswd.length > 30) {
+            document.getElementById('passwordDanger').innerHTML = "!! Password must be less 30 !!";
+            result = false;
+        } else {
+            document.getElementById('passwordDanger').innerHTML = "";
+        }
+        if (pswd != repswd) {
+            alert( "!! Password are not same !!");
+        }
+        return result;
+    }
+
+    var REGISTER_API = 'https://2-dot-backup-server-003.appspot.com/_api/v2/members';
+    var btnRegister = document.forms['register-form']['btn-register'];
+    if (btnRegister != null) {
+        btnRegister.onclick = function () {
+            var resultValidation = validationForm();
+            if(resultValidation != false){
+                var firstName = document.getElementById('firstName').value;
+                var lastName = document.getElementById('lastName').value;
+                var passWord = document.getElementById('passWord').value;
+                var address = document.getElementById("address").value;
+                var phone = document.getElementById("phone").value;
+                var genderText = document.querySelector('input[name="gender"]:checked').value;
+                var gender = 1;
+                var email = document.getElementById("email").value;
+                var dd = new Date();
+                var myDate = dd.getFullYear() + '-' + (dd.getMonth() + 1) + '-'
+                    + (dd.getDate() < 10 ? '0' + dd.getDate() : dd.getDate());
+                if (genderText == "male") {
+                    gender = 1;
+                } else if (genderText == "female") {
+                    gender = 2;
+                } else {
+                    gender = 0;
+                }
+                var informember = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    password: passWord,
+                    address: address,
+                    phone: phone,
+                    gender: gender,
+                    email: email,
+                    birthday: myDate,
+                    avatar: "http://1.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+                };
+                postRegisterData(informember);
+            }
+        }
+    }
+
+
+    function postRegisterData(jsonData) {
+        var xmlHttpRequest = new XMLHttpRequest();
+        // window.location.href = 'login.html';
+        xmlHttpRequest.open('POST', REGISTER_API, true);
+        xmlHttpRequest.setRequestHeader("Content-type", "application/json");
+        xmlHttpRequest.send(JSON.stringify(jsonData));
+        xmlHttpRequest.onreadystatechange = function () {
+            // if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
+            if (this.readyState === 4 && this.status === 201) {
+                // var member = JSON.parse(this.responseText);
+                // alert(JSON.stringify(member));
+                // window.location.href = 'login.html';
+            } else if(this.status === 400 || this.status === 404)  {
+                window.location.href = 'login.html';
+            }
+        };
+    }
+</script>
+</body>
+</html>
